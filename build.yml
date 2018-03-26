@@ -18,6 +18,7 @@ run:
   args:
   - -exc
   - |
+    ls
     cd demo-redux-repo
     yarn install --no-progress
     yarn build
