@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: '8-alpine'
+
+inputs:
+  - name: demo-redux-repo
+caches:
+  - path: demo-redux-repo/node_modules
+
+run:
+  path: sh
+  args:
+  - -exc
+  - |
+    cd redux-example
+    yarn install --no-progress
+    yarn lint
+    CI=true yarn test
