@@ -14,31 +14,7 @@ jobs:
       - task: test
         input_mapping:
           demo-redux-repo: git-demo-redux-repo
-        # file: git-demo-redux-repo/test.yml
-        config:
-          platform: linux
-          image_resource:
-            type: docker-image
-            source:
-              repository: node
-              tag: '8-alpine'
-          inputs:
-            - name: demo-redux-repo
-          caches:
-            - path: demo-redux-repo/node_modules
-          run:
-            path: sh
-            args:
-            - -exc
-            - |
-              pwd
-              ls
-              cd demo-redux-repo
-              ls
-              yarn install --no-progress
-              yarn lint
-              CI=true yarn test
-
+        file: test.yml
         params:
           NODE_ENV: test
 
