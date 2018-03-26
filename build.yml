@@ -1,14 +1,18 @@
----
 platform: linux
+
 image_resource:
   type: docker-image
   source:
     repository: node
     tag: '8-alpine'
+
 inputs:
   - name: demo-redux-repo
+outputs:
+  - name: build
 caches:
   - path: demo-redux-repo/node_modules
+
 run:
   path: sh
   args:
@@ -16,4 +20,7 @@ run:
   - |
     cd demo-redux-repo
     yarn install --no-progress
-    CI=true yarn test
+    yarn build
+    cp ${MANIFEST%.yml}.yml ./build
+    cp Staticfile build/Staticfile
+    cp -r build ../
