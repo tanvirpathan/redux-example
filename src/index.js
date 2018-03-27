@@ -36,7 +36,7 @@ class App extends React.Component {
         />
       </div>
       {
-        this.state.checked ? (<h2>Dones!</h2>) : null
+        this.state.checked ? (<h2>Done!</h2>) : null
       }
     </div>
     );
