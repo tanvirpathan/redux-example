@@ -13,7 +13,19 @@ resources:
       password: ((cf-password))
       organization: ((cf-org))
       space: ((cf-dev-space))
-
+  - name: git-pr-demo-react
+    type: pull-request
+    source:
+      access_token: ((github-access-token))
+      private_key: ((github-private-key))
+      uri: git@github.com:tanvirpathan/redux-example.git
+      repo: tanvirpathan/redux-example
+      base: master
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: jtarchie/pr
 jobs:
   - name: test-demo-redux
     plan:
@@ -43,3 +55,23 @@ jobs:
           manifest: build/manifest_dev.yml
           path: build
           current_app_name: demo-redux
+  - name: test-web-pr
+    plan:
+      - get: git-pr-demo-react
+        trigger: true
+      - task: test
+        input_mapping:
+          demo-react-repo: git-pr-demo-react
+        file: git-pr-demo-react/test.yml
+        params:
+          NODE_ENV: test
+        on_success:
+          put: git-pr-demo-react
+          params:
+            path: git-pr-demo-react
+            status: success
+        on_failure:
+          put: git-pr-demo-react
+          params:
+            path: git-pr-demo-react
+            status: failure
