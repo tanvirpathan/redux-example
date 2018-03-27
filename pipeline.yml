@@ -61,7 +61,7 @@ jobs:
         trigger: true
       - task: test
         input_mapping:
-          demo-react-repo: git-pr-demo-react
+          pr-demo-react: git-pr-demo-react
         file: git-pr-demo-react/test.yml
         params:
           NODE_ENV: test
