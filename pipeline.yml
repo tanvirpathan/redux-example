@@ -55,23 +55,23 @@ jobs:
           manifest: build/manifest_dev.yml
           path: build
           current_app_name: demo-redux
-  - name: test-web-pr
-    plan:
-      - get: git-pr-demo-react
-        trigger: true
-      - task: test
-        input_mapping:
-          pr-demo-react: git-pr-demo-react
-        file: git-pr-demo-react/test.yml
-        params:
-          NODE_ENV: test
-        on_success:
-          put: git-pr-demo-react
-          params:
-            path: git-pr-demo-react
-            status: success
-        on_failure:
-          put: git-pr-demo-react
-          params:
-            path: git-pr-demo-react
-            status: failure
+  # - name: test-web-pr
+  #   plan:
+  #     - get: git-pr-demo-react
+  #       trigger: true
+  #     - task: test
+  #       input_mapping:
+  #         demo-react-repo: git-pr-demo-react
+  #       file: git-pr-demo-react/test.yml
+  #       params:
+  #         NODE_ENV: test
+  #       on_success:
+  #         put: git-pr-demo-react
+  #         params:
+  #           path: git-pr-demo-react
+  #           status: success
+  #       on_failure:
+  #         put: git-pr-demo-react
+  #         params:
+  #           path: git-pr-demo-react
+  #           status: failure
